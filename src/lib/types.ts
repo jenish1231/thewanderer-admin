@@ -1,15 +1,5 @@
 export type UserType = "Creator" | "Traveler" | "Admin"
-export type UserStatus = "Active" | "Pending" | "Suspended"
 export type GuideStatus = "Draft" | "In Review" | "Rejected" | "Published" | "Unlisted"
-
-export interface User {
-  name: string
-  email: string
-  type: UserType
-  status: UserStatus
-  lastActive: string
-  location: string
-}
 
 export interface Guide {
   name: string

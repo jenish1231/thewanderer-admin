@@ -1,26 +1,4 @@
-import type { Guide, Kpi, Order, Range, Report, RevenueSeries, Share, User } from "@/lib/types"
-
-export const USERS: User[] = (
-  [
-    ["Asha Gurung", "asha@thewanderer.co", "Creator", "Pro creator", "Active", "2 min ago", "Kathmandu"],
-    ["Mateo Silva", "mateo.s@mail.com", "Creator", "Pro creator", "Active", "2 days ago", "Lisbon"],
-    ["Kenji Watanabe", "kenji.w@mail.com", "Creator", "Creator", "Active", "Yesterday", "Osaka"],
-    ["Elena Petrova", "elena.p@mail.com", "Creator", "Creator", "Invited", "—", "Sofia"],
-    ["Amara Diallo", "amara.d@mail.com", "Creator", "Creator", "Active", "5 hr ago", "Dakar"],
-    ["Liam Okafor", "liam.o@mail.com", "Creator", "Pro creator", "Active", "1 hr ago", "Lagos"],
-    ["Hana Kim", "hana.kim@mail.com", "Creator", "Creator", "Suspended", "20 days ago", "Seoul"],
-    ["Sofia Marín", "sofia.marin@mail.com", "Traveler", "Explorer plus", "Active", "Just now", "Madrid"],
-    ["Noah Becker", "noah.b@mail.com", "Traveler", "Free", "Suspended", "12 days ago", "Berlin"],
-    ["Priya Raman", "priya.r@mail.com", "Traveler", "Explorer plus", "Active", "3 hr ago", "Chennai"],
-    ["Oliver Grant", "oliver.g@mail.com", "Traveler", "Free", "Active", "Yesterday", "Denver"],
-    ["Mei Lin", "mei.lin@mail.com", "Traveler", "Explorer plus", "Active", "6 hr ago", "Taipei"],
-    ["Daniel Osei", "daniel.o@mail.com", "Traveler", "Free", "Invited", "—", "Accra"],
-    ["Chloé Laurent", "chloe.l@mail.com", "Traveler", "Free", "Active", "4 days ago", "Lyon"],
-    ["Jenish Shrestha", "jenish@thewanderer.co", "Admin", "Superadmin", "Active", "Just now", "Kathmandu"],
-    ["Raj Patel", "raj@thewanderer.co", "Admin", "Admin", "Active", "1 hr ago", "Mumbai"],
-    ["Sara Nomvete", "sara@thewanderer.co", "Admin", "Admin", "Active", "Yesterday", "Cape Town"],
-  ] as const
-).map(([name, email, type, tier, status, lastActive, location]) => ({ name, email, type, tier, status, lastActive, location }))
+import type { Guide, Kpi, Order, Range, Report, RevenueSeries, Share } from "@/lib/types"
 
 export const GUIDES: Guide[] = (
   [
