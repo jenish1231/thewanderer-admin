@@ -1,15 +1,27 @@
-import { queryOptions, useMutation, useQuery } from "@tanstack/react-query"
+import { keepPreviousData, queryOptions, useMutation, useQuery } from "@tanstack/react-query"
 import { api } from "@/lib/api"
 import { queryClient } from "@/lib/queryClient"
 import * as mock from "@/mocks/data"
-import type { AdminUser, Range, UserType } from "@/lib/types"
+import type { Account, AdminUser, Page, Range, UserType } from "@/lib/types"
 import { useAuthStore } from "@/store/auth"
 
 // ponytail: queryFns resolve mock data until the admin API exists; replace with `api.get(...)` from @/lib/api.
 const resolve = <T,>(data: T) => () => Promise.resolve(data)
 
-export const usersQuery = (type: UserType) =>
-  queryOptions({ queryKey: ["users", type], queryFn: resolve(mock.USERS.filter((u) => u.type === type)) })
+const USERS_PATH: Record<UserType, string> = { Creator: "creators", Traveler: "travelers", Admin: "admins" }
+export const USERS_PAGE_SIZE = 20
+
+export const usersQuery = (type: UserType, page: number) =>
+  queryOptions({
+    queryKey: ["users", type, page],
+    queryFn: () =>
+      api
+        .get<Page<Account>>(`/admin/users/${USERS_PATH[type]}`, {
+          params: { limit: USERS_PAGE_SIZE, offset: (page - 1) * USERS_PAGE_SIZE },
+        })
+        .then((r) => r.data),
+    placeholderData: keepPreviousData,
+  })
 export const guidesQuery = queryOptions({ queryKey: ["guides"], queryFn: resolve(mock.GUIDES) })
 export const ordersQuery = queryOptions({ queryKey: ["orders"], queryFn: resolve(mock.ORDERS) })
 export const reportsQuery = queryOptions({ queryKey: ["reports"], queryFn: resolve(mock.REPORTS) })
@@ -25,7 +37,7 @@ export const analyticsQuery = queryOptions({
   queryFn: resolve({ kpis: mock.REPORT_KPIS, regions: mock.REGIONS, acquisition: mock.ACQUISITION }),
 })
 
-export const useUsers = (type: UserType) => useQuery(usersQuery(type))
+export const useUsers = (type: UserType, page: number) => useQuery(usersQuery(type, page))
 export const useGuides = () => useQuery(guidesQuery)
 export const useOrders = () => useQuery(ordersQuery)
 export const useReports = () => useQuery(reportsQuery)

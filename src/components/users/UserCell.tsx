@@ -1,7 +1,6 @@
 import { UserAvatar } from "@/components/common/UserAvatar"
-import type { User } from "@/lib/types"
 
-export function UserCell({ user, tone }: { user: User; tone: number }) {
+export function UserCell({ user, tone }: { user: { name: string; email: string }; tone: number }) {
   return (
     <div className="flex items-center gap-3">
       <UserAvatar name={user.name} tone={tone} />

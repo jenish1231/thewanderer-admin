@@ -1,16 +1,34 @@
 import { Button } from "@/components/ui/button"
 
-// ponytail: static pager — wire page state once the API paginates.
-export function Pagination({ summary }: { summary: string }) {
+export function Pagination({
+  page,
+  pageSize,
+  total,
+  onPage,
+}: {
+  page: number
+  pageSize: number
+  total: number
+  onPage: (page: number) => void
+}) {
+  const pages = Math.max(1, Math.ceil(total / pageSize))
+  const first = total === 0 ? 0 : (page - 1) * pageSize + 1
+  const last = Math.min(page * pageSize, total)
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 text-sm text-muted-foreground">
-      <span>{summary}</span>
-      <div className="flex gap-1.5">
-        <Button variant="outline" size="sm">Prev</Button>
-        <Button variant="ink" size="sm" className="min-w-8">1</Button>
-        <Button variant="outline" size="sm" className="min-w-8">2</Button>
-        <Button variant="outline" size="sm" className="min-w-8">3</Button>
-        <Button variant="outline" size="sm">Next</Button>
+      <span>
+        Showing {first}–{last} of {total.toLocaleString()}
+      </span>
+      <div className="flex items-center gap-1.5">
+        <Button variant="outline" size="sm" disabled={page <= 1} onClick={() => onPage(page - 1)}>
+          Prev
+        </Button>
+        <span className="px-2">
+          Page {page} of {pages}
+        </span>
+        <Button variant="outline" size="sm" disabled={page >= pages} onClick={() => onPage(page + 1)}>
+          Next
+        </Button>
       </div>
     </div>
   )

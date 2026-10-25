@@ -9,9 +9,9 @@ const TONE = {
 }
 
 const STATUS_TONE: Record<string, keyof typeof TONE> = {
-  Active: "ok", Delivered: "ok", Ready: "ok", Published: "ok",
+  Active: "ok", Verified: "ok", Delivered: "ok", Ready: "ok", Published: "ok",
   "In review": "info", Shipped: "info", Processing: "info",
-  Draft: "warn", Pending: "warn", Invited: "warn", Scheduled: "warn",
+  Draft: "warn", Pending: "warn", Unverified: "warn", Invited: "warn", Scheduled: "warn",
   Cancelled: "bad", Suspended: "bad", Failed: "bad",
 }
 

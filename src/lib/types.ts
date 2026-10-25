@@ -75,3 +75,19 @@ export interface AdminUser {
   email: string
   role: "superadmin"
 }
+
+export type AccountStatus = "verified" | "unverified"
+
+/** One account in an /admin/users/* list. */
+export interface Account {
+  id: string
+  name: string
+  email: string
+  status: AccountStatus
+  created_at: string
+}
+
+export interface Page<T> {
+  items: T[]
+  total: number
+}
