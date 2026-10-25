@@ -2,14 +2,11 @@ import {
   BarChart3,
   BookMarked,
   Backpack,
-  KeyRound,
   LayoutDashboard,
-  LogIn,
   PenLine,
   Settings,
   ShieldCheck,
   ShoppingBag,
-  UserPlus,
   Users,
   type LucideIcon,
 } from "lucide-react"
@@ -39,11 +36,3 @@ export const MAIN_NAV: NavLinkItem[] = [
 ]
 
 export const ADMIN_NAV: NavLinkItem[] = [{ to: "/settings", label: "Settings", icon: Settings }]
-
-// ponytail: design exposes the auth screens in the sidebar for previewing; drop once real auth exists.
-export const AUTH_NAV: NavLinkItem[] = [
-  { to: "/signin", label: "Sign in", icon: LogIn },
-  { to: "/register", label: "Create account", icon: UserPlus },
-  { to: "/forgot-password", label: "Forgot password", icon: KeyRound },
-  { to: "/two-factor", label: "Two-step verification", icon: ShieldCheck },
-]

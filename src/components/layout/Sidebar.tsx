@@ -2,7 +2,7 @@ import { BrandMark, BrandName } from "@/components/common/BrandMark"
 import { SidebarGroup } from "@/components/layout/SidebarGroup"
 import { SidebarLink } from "@/components/layout/SidebarLink"
 import { SidebarSection } from "@/components/layout/SidebarSection"
-import { ADMIN_NAV, AUTH_NAV, MAIN_NAV } from "@/components/layout/nav"
+import { ADMIN_NAV, MAIN_NAV } from "@/components/layout/nav"
 import { cn } from "@/lib/utils"
 import { useUiStore } from "@/store/ui"
 
@@ -26,11 +26,6 @@ export function Sidebar() {
         <SidebarSection title="Admin">
           {ADMIN_NAV.map((item) => (
             <SidebarLink key={item.to} item={item} />
-          ))}
-        </SidebarSection>
-        <SidebarSection title="Auth pages">
-          {AUTH_NAV.map((item) => (
-            <SidebarLink key={item.to} item={item} muted />
           ))}
         </SidebarSection>
       </nav>

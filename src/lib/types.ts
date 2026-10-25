@@ -68,3 +68,10 @@ export interface RevenueSeries {
   caption: string
   xLabels: string[]
 }
+
+export interface AdminUser {
+  id: string
+  name: string
+  email: string
+  role: "superadmin"
+}

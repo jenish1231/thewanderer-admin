@@ -1,6 +1,9 @@
-import { queryOptions, useQuery } from "@tanstack/react-query"
+import { queryOptions, useMutation, useQuery } from "@tanstack/react-query"
+import { api } from "@/lib/api"
+import { queryClient } from "@/lib/queryClient"
 import * as mock from "@/mocks/data"
-import type { Range, UserType } from "@/lib/types"
+import type { AdminUser, Range, UserType } from "@/lib/types"
+import { useAuthStore } from "@/store/auth"
 
 // ponytail: queryFns resolve mock data until the admin API exists; replace with `api.get(...)` from @/lib/api.
 const resolve = <T,>(data: T) => () => Promise.resolve(data)
@@ -30,3 +33,29 @@ export const useRevenue = (range: Range) => useQuery(revenueQuery(range))
 export const useNotifications = () => useQuery(notificationsQuery)
 export const useDashboard = () => useQuery(dashboardQuery)
 export const useAnalytics = () => useQuery(analyticsQuery)
+
+// --- admin auth (/admin/auth/*) ---
+
+export const meQuery = queryOptions({
+  queryKey: ["me"],
+  queryFn: () => api.get<{ user: AdminUser }>("/admin/auth/me").then((r) => r.data.user),
+  retry: false,
+})
+export const useMe = () => useQuery(meQuery)
+
+export const useSignIn = () =>
+  useMutation({
+    mutationFn: (body: { email: string; password: string }) =>
+      api.post<{ accessToken: string; user: AdminUser }>("/admin/auth/login", body).then((r) => r.data),
+    onSuccess: ({ accessToken, user }) => useAuthStore.getState().signIn(accessToken, user),
+  })
+
+export const useSignOut = () =>
+  useMutation({
+    mutationFn: () => api.post("/admin/auth/logout"),
+    // Sign out locally even if the request fails: the token is dropped either way.
+    onSettled: () => {
+      useAuthStore.getState().signOut()
+      queryClient.clear()
+    },
+  })
